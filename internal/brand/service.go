@@ -117,13 +117,6 @@ func (s *Service) AcknowledgeRecall(_ context.Context, recall Recall, storeID st
 }
 
 func (s *Service) ActivateLicense(ctx context.Context, license BrandLicense, store StoreProfile) (BrandLicense, error) {
-	original := license
-	license = original
-	license.EffectiveTo = s.now()
-	if license.EffectiveTo.After(s.now()) {
-		license.EffectiveTo = s.now()
-	}
-
 	if err := ValidateThreeStoreModel(store); err != nil {
 		return BrandLicense{}, err
 	}
